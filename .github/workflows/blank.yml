@@ -34,9 +34,9 @@ jobs:
          aws-region: ap-south-1
 
       # Runs a set of commands using the runners shell
-      - name: Login to Amazon EKS
-        id: login-eks
-        uses: aws-actions/amazon-eks-login@v1
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
         
       - name: Print new build number
         run: echo "Build number is"  
