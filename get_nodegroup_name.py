@@ -18,7 +18,7 @@ except Exception as e:
 
 # Autoscale the nodegroup
 if nodegroup_name:
-    autoscaling_client = boto3.client('autoscaling')
+    autoscaling_client = boto3.client('autoscaling', region_name='ap-south-1')
     try:
         response = autoscaling_client.update_auto_scaling_group(
             AutoScalingGroupName=nodegroup_name,
