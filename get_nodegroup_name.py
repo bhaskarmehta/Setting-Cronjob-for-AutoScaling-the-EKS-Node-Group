@@ -2,6 +2,8 @@ import boto3
 
 # EKS client
 eks = boto3.client('eks',region_name='ap-south-1')
+ec2 = boto3.client('ec2', region_name='ap-south-1')
+autoscaling = boto3.client('autoscaling',region_name='ap-south-1')
 
 # Get nodegroup name of the cluster
 cluster_name = 'eks-test23'
@@ -15,20 +17,32 @@ try:
         print("No nodegroups found in the cluster.")
 except Exception as e:
     print(f"Error: {e}")
+    
+# Retrieve the ASG name associated with the node group
+nodegroup_instances = ec2.describe_instances(Filters=[
+    {
+        'Name': 'tag:eks:nodegroup-name',
+        'Values': [nodegroup_name]
+    },
+    {
+        'Name': 'instance-state-name',
+        'Values': ['running']
+    }
+])
+asg_name = nodegroup_instances['Reservations'][0]['Instances'][0]['Tags'][0]['Value']
 
-# Autoscale the nodegroup
-if nodegroup_name:
-    autoscaling_client = boto3.client('autoscaling', region_name='ap-south-1')
-    try:
-        response = autoscaling_client.update_auto_scaling_group(
-            AutoScalingGroupName=nodegroup_name,
-            MinSize=1, # set your desired min size
-     
-            MaxSize=10 # set your desired max size
-        )
-        print("Autoscaling group updated successfully.")
-    except Exception as e:
-        print(f"Error: {e}")
+# Get the current node group size
+asg_response = autoscaling.describe_auto_scaling_groups(AutoScalingGroupNames=[asg_name])
+current_size = len(asg_response['AutoScalingGroups'][0]['Instances'])
+
+# Scale the node group
+response = autoscaling.update_auto_scaling_group(
+    AutoScalingGroupName=asg_name,
+    MinSize=current_size,
+    MaxSize=current_size+1,
+    DesiredCapacity=current_size+1
+)
+
 
 
 
