@@ -1,18 +1,22 @@
-import subprocess
-import json
+import boto3
 
-# Set the name of your EKS cluster and nodegroup
+# Create an EKS client
+eks = boto3.client('eks')
+
+# Set the name of the EKS cluster
 cluster_name = 'eks-test23'
-nodegroup_name = 'eks-node'
-region = 'ap-south-1'
 
-# Get the ARN of the nodegroup
-cmd = f'aws eks describe-nodegroup --cluster-name {cluster_name} --nodegroup-name {nodegroup_name} --region {region}'
-output = subprocess.check_output(cmd, shell=True)
-nodegroup_arn = json.loads(output.decode('utf-8'))['nodegroup']['nodegroupArn']
+# Get the list of nodegroups for the EKS cluster
+response = eks.list_nodegroups(clusterName=cluster_name)
+nodegroups = response['nodegroups']
 
-# Extract the nodegroup name from the ARN
-nodegroup_name = nodegroup_arn.split('/')[-1]
+# Print the list of nodegroups
+print('Nodegroups:', nodegroups)
 
-print(f'The nodegroup name for {cluster_name} in {region} is {nodegroup_name}')
+# Get the name of the first nodegroup in the list
+nodegroup_name = nodegroups[0]
+
+# Print the name of the first nodegroup
+print('Nodegroup name:', nodegroup_name)
+
 
