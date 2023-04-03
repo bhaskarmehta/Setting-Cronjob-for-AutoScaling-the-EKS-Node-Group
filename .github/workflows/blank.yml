@@ -1,38 +1,17 @@
-name: Autoscale EC2 for EKS Node Group
+name: Get EKS nodegroup name
 
 on: [push]
-  
-
-env:
-  AWS_REGION: ap-south-1
 
 jobs:
-  autoscale:
+  get-nodegroup-name:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Get EKS node group name
-        id: get-nodegroup-name
-        run: |
-          NODEGROUP_NAME=$(aws eks describe-nodegroup --cluster-name eks-test23 --nodegroup-name eks-node --query 'nodegroup.nodegroupName' --output text)
-          echo "::set-output name=nodegroup_name::$NODEGROUP_NAME"
-
-      - name: Autoscale EC2 instances
-        uses: awslabs/amazon-ec2-auto-scaling@v0.1.1
-        with:
-          region: ${{ env.AWS_REGION }}
-          nodegroup-name: ${{ steps.get-nodegroup-name.outputs.nodegroup_name }}
-          min-size: 2
-          max-size: 10
-          desired-size: 2
- 
+      - name: Install AWS CLI
+        run: sudo apt-get install awscli -y
+      - name: Run Python script
+        run: python get_nodegroup_name.py
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
