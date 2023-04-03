@@ -28,7 +28,7 @@ jobs:
           echo "::set-output name=nodegroup_name::$NODEGROUP_NAME"
 
       - name: Autoscale EC2 instances
-        uses: aws-actions/amazon-ec2-autoscale@v1
+        uses: aws-actions/amazon-ec2-autoscale@main
         with:
           region: ${{ env.AWS_REGION }}
           nodegroup-name: ${{ steps.get-nodegroup-name.outputs.nodegroup_name }}
