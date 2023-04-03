@@ -1,7 +1,7 @@
 import boto3
 
 # Create an EKS client
-eks = boto3.client('eks')
+eks = boto3.client('eks',region_name='ap-south-1')
 
 # Set the name of the EKS cluster
 cluster_name = 'eks-test23'
