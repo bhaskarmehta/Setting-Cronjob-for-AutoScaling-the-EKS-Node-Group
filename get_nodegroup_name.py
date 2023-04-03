@@ -1,22 +1,34 @@
 import boto3
 
-# Create an EKS client
-eks = boto3.client('eks',region_name='ap-south-1')
+# EKS client
+eks_client = session.client('eks',region_name='ap-south-1')
 
-# Set the name of the EKS cluster
+# Get nodegroup name of the cluster
 cluster_name = 'eks-test23'
+nodegroup_name = ''
+try:
+    response = eks_client.list_nodegroups(clusterName=cluster_name)
+    if len(response['nodegroups']) > 0:
+        nodegroup_name = response['nodegroups'][0]
+        print(f"Nodegroup name: {nodegroup_name}")
+    else:
+        print("No nodegroups found in the cluster.")
+except Exception as e:
+    print(f"Error: {e}")
 
-# Get the list of nodegroups for the EKS cluster
-response = eks.list_nodegroups(clusterName=cluster_name)
-nodegroups = response['nodegroups']
+# Autoscale the nodegroup
+if nodegroup_name:
+    autoscaling_client = session.client('autoscaling')
+    try:
+        response = autoscaling_client.update_auto_scaling_group(
+            AutoScalingGroupName=nodegroup_name,
+            MinSize=1, # set your desired min size
+            DesiredSize=2,
+            MaxSize=10 # set your desired max size
+        )
+        print("Autoscaling group updated successfully.")
+    except Exception as e:
+        print(f"Error: {e}")
 
-# Print the list of nodegroups
-print('Nodegroups:', nodegroups)
-
-# Get the name of the first nodegroup in the list
-nodegroup_name = nodegroups[0]
-
-# Print the name of the first nodegroup
-print('Nodegroup name:', nodegroup_name)
 
 
