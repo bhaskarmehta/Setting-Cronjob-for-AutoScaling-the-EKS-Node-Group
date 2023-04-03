@@ -21,9 +21,9 @@ if nodegroup_name:
     autoscaling_client = boto3.client('autoscaling', region_name='ap-south-1')
     try:
         response = autoscaling_client.update_auto_scaling_group(
-            AutoScalingGroupName=eks-node,
+            AutoScalingGroupName=nodegroup_name,
             MinSize=1, # set your desired min size
-            DesiredCapacity=2,
+     
             MaxSize=10 # set your desired max size
         )
         print("Autoscaling group updated successfully.")
