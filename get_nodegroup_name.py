@@ -33,14 +33,14 @@ asg_name = nodegroup_instances['Reservations'][0]['Instances'][0]['Tags'][0]['Va
 
 # Get the current node group size
 asg_response = autoscaling.describe_auto_scaling_groups(AutoScalingGroupNames=[asg_name])
-current_size = len(asg_response['AutoScalingGroups'][0]['Instances'])
+# current_size = len(asg_response['AutoScalingGroups'][0]['Instances'])
 
 # Scale the node group
 response = autoscaling.update_auto_scaling_group(
     AutoScalingGroupName=asg_name,
-    MinSize=current_size,
-    MaxSize=current_size+1,
-    DesiredCapacity=current_size+1
+    MinSize=1,
+    MaxSize=3,
+    DesiredCapacity=2
 )
 
 
