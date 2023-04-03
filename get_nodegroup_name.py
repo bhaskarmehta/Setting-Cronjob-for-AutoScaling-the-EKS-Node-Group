@@ -23,7 +23,7 @@ if nodegroup_name:
         response = autoscaling_client.update_auto_scaling_group(
             AutoScalingGroupName=nodegroup_name,
             MinSize=1, # set your desired min size
-            DesiredSize=2,
+            DesiredCapacity=2,
             MaxSize=10 # set your desired max size
         )
         print("Autoscaling group updated successfully.")
