@@ -1,8 +1,7 @@
 name: Autoscale EC2 for EKS Node Group
 
-on:
-  schedule:
-    - cron: '5 19 * * *' # Runs every day at midnight
+on: [push]
+  
 
 env:
   AWS_REGION: ap-south-1
