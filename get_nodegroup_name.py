@@ -2,8 +2,8 @@ import subprocess
 import json
 
 # Set the name of your EKS cluster and nodegroup
-cluster_name = 'my-eks-cluster'
-nodegroup_name = 'my-nodegroup'
+cluster_name = 'eks-test23'
+nodegroup_name = 'eks-node'
 region = 'ap-south-1'
 
 # Get the ARN of the nodegroup
