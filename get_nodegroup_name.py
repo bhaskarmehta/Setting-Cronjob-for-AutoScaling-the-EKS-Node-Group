@@ -23,10 +23,6 @@ nodegroup_instances = ec2.describe_instances(Filters=[
     {
         'Name': 'tag:eks:nodegroup-name',
         'Values': [nodegroup_name]
-    },
-    {
-        'Name': 'instance-state-name',
-        'Values': ['running']
     }
 ])
 asg_name = "eks-eks-node-4cc39b3a-f931-76e8-254c-3321f079a3be"
@@ -40,7 +36,7 @@ asg_response = autoscaling.describe_auto_scaling_groups(AutoScalingGroupNames=[a
 response = autoscaling.update_auto_scaling_group(
     AutoScalingGroupName=asg_name,
     MinSize=1,
-    MaxSize=3,
+    MaxSize=1,
     DesiredCapacity=1
 )
 
