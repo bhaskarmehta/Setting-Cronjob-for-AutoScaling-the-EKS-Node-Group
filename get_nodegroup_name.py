@@ -1,13 +1,13 @@
 import boto3
 
 # EKS client
-eks_client = session.client('eks',region_name='ap-south-1')
+eks = boto3.client('eks',region_name='ap-south-1')
 
 # Get nodegroup name of the cluster
 cluster_name = 'eks-test23'
 nodegroup_name = ''
 try:
-    response = eks_client.list_nodegroups(clusterName=cluster_name)
+    response = eks.list_nodegroups(clusterName=cluster_name)
     if len(response['nodegroups']) > 0:
         nodegroup_name = response['nodegroups'][0]
         print(f"Nodegroup name: {nodegroup_name}")
