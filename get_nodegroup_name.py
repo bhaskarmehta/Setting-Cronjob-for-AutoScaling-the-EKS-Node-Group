@@ -30,6 +30,7 @@ nodegroup_instances = ec2.describe_instances(Filters=[
     }
 ])
 asg_name = nodegroup_instances['Reservations'][0]['Instances'][0]['Tags'][0]['Value']
+print(asg_name)
 
 # Get the current node group size
 asg_response = autoscaling.describe_auto_scaling_groups(AutoScalingGroupNames=[asg_name])
