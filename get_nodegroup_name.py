@@ -41,7 +41,7 @@ response = autoscaling.update_auto_scaling_group(
     AutoScalingGroupName=asg_name,
     MinSize=1,
     MaxSize=3,
-    DesiredCapacity=2
+    DesiredCapacity=1
 )
 
 
