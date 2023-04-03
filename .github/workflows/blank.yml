@@ -9,7 +9,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install AWS CLI
-        run: sudo apt-get install awscli -y
+        run: | 
+             sudo apt-get install awscli -y
+             pip install boto3
       - name: Run Python script
         run: python get_nodegroup_name.py
         env:
