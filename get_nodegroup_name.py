@@ -29,7 +29,7 @@ nodegroup_instances = ec2.describe_instances(Filters=[
         'Values': ['running']
     }
 ])
-asg_name = nodegroup_instances['Reservations'][0]['Instances'][0]['Tags'][0]['Value']
+asg_name = eks-eks-node-4cc39b3a-f931-76e8-254c-3321f079a3be
 print(asg_name)
 
 # Get the current node group size
