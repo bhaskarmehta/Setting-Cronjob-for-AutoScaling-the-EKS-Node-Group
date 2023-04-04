@@ -25,7 +25,7 @@ nodegroup_response = eks.describe_nodegroup(
     clusterName=cluster_name,
     nodegroupName=nodegroup_name
 )
-asg_name = nodegroup_response['nodegroup']['resources']['autoScalingGroups']
+asg_name = nodegroup_response['nodegroup']['resources']['autoScalingGroups'][0]
 
 # asg2_name = asg_name.values()
 
