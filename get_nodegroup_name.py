@@ -25,11 +25,10 @@ nodegroup_response = eks.describe_nodegroup(
     clusterName=cluster_name,
     nodegroupName=nodegroup_name
 )
-asg_name = nodegroup_response['nodegroup']['resources']['autoScalingGroups'][0]
+asg_key_pair_value = nodegroup_response['nodegroup']['resources']['autoScalingGroups'][0]
 
 # asg2_name = asg_name.values()
-name_value = asg_name['name']
-print(name_value)
+asg_name = asg_key_pair_value['name']
 print(f"asg_name is : {asg_name}")
 
 
@@ -39,9 +38,9 @@ print(f"asg_name is : {asg_name}")
 
 # Scale the node group
 response = autoscaling.update_auto_scaling_group(
-    AutoScalingGroupName=name_value,
+    AutoScalingGroupName=asg_name,
     MinSize=1,
-    MaxSize=1,
+    MaxSize=2,
     DesiredCapacity=1
 )
 
