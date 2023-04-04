@@ -2,7 +2,7 @@ import boto3
 
 # EKS client
 eks = boto3.client('eks',region_name='ap-south-1')
-ec2 = boto3.client('ec2', region_name='ap-south-1')
+# ec2 = boto3.client('ec2', region_name='ap-south-1')
 autoscaling = boto3.client('autoscaling',region_name='ap-south-1')
 
 # Get nodegroup name of the cluster
