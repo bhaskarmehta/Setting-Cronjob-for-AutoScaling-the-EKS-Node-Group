@@ -27,7 +27,9 @@ nodegroup_response = eks.describe_nodegroup(
 )
 asg_name = nodegroup_response['nodegroup']['resources']['autoScalingGroups'][0]
 
-print(f"asg_name is : {asg_name}")
+asg2_name = asg_name.values()
+
+print(f"asg_name is : {asg2_name}")
 
 
 # Get the current node group size
