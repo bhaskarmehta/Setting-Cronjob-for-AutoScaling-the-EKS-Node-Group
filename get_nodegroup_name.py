@@ -1,6 +1,4 @@
 import boto3
-import pytz
-import os
 
 # EKS client
 eks = boto3.client('eks',region_name='ap-south-1')
@@ -49,12 +47,10 @@ def scale_down():
 # Call the appropriate function based on the time of day
 if __name__ == '__main__':
     import datetime
-    # Set the time zone to IST
-    tz = pytz.timezone(os.environ['TZ'])
-    now = datetime.datetime.now(tz)
-    if now.hour == 14 and now.minute == 20:
+    now = datetime.datetime.now()
+    if now.hour == 9:
         scale_up()
-    elif now.hour == 14 and now.minute == 17:
+    elif now.hour == 10:
         scale_down()
     else:
         print("Not a scheduled time")    
