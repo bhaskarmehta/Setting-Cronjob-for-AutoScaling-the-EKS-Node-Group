@@ -49,9 +49,9 @@ if __name__ == '__main__':
     import datetime
     
     now = datetime.datetime.now()
-    if now.hour == 7 && now.minute == 55:
+    if now.hour == 8 and now.minute == 5:
         scale_up()
-    elif now.hour == 7 && now.minute == 57:
+    elif now.hour == 8 and now.minute == 7:
         scale_down()
     else:
         print("Not a scheduled time")    
