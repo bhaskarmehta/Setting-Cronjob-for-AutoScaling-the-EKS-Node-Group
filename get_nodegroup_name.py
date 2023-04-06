@@ -51,7 +51,7 @@ if __name__ == '__main__':
     now = datetime.datetime.now()
     if now.hour == 5:
         scale_up()
-    elif now.hour == 20:
+    elif now.hour == 6:
         scale_down()
     else:
         print("Not a scheduled time")    
