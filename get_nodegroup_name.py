@@ -49,7 +49,7 @@ if __name__ == '__main__':
     import datetime
     
     now = datetime.datetime.now()
-    if now.hour == 16:
+    if now.hour == 5:
         scale_up()
     elif now.hour == 20:
         scale_down()
