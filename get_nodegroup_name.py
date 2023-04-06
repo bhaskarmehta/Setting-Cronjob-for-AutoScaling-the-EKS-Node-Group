@@ -27,14 +27,34 @@ asg_key_pair_value = nodegroup_response['nodegroup']['resources']['autoScalingGr
 asg_name = asg_key_pair_value['name']
 print(f"asg_name is : {asg_name}")
 
-
-# Scale the node group
-response = autoscaling.update_auto_scaling_group(
+# Scale Up the node
+def scale_up():
+    autoscaling.update_auto_scaling_group(
     AutoScalingGroupName=asg_name,
     MinSize=1,
     MaxSize=2,
     DesiredCapacity=1
 )
+    
+def scale_down():
+    autoscaling.update_auto_scaling_group(
+        AutoScalingGroupName=asg_name,
+        MinSize=0,
+        MaxSize=0,
+        DesiredCapacity=0
+    )
+    
+# Call the appropriate function based on the time of day
+if __name__ == '__main__':
+    import datetime
+    
+    now = datetime.datetime.now()
+    if now.hour == 11:
+        scale_up()
+    elif now.hour == 20:
+        scale_down()
+    else:
+        print("Not a scheduled time")    
 
 
 
