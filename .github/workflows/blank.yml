@@ -2,8 +2,8 @@ name: Get EKS nodegroup name
 
 on: 
     schedule:
-        - cron: "50 5 * * *"
-        - cron: "0 6 * * *"
+        - cron: "55 7 * * *"
+        - cron: "57 7 * * *"
 
 jobs:
   get-nodegroup-name:
