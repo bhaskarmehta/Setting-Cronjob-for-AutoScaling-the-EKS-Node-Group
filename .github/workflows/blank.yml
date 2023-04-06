@@ -2,7 +2,7 @@ name: Get EKS nodegroup name
 
 on: 
     schedule:
-        - cron: "15 14 * * *"
+        - cron: "20 14 * * *"
         - cron: "17 14 * * *"
 env:
   TZ: Asia/Kolkata # set time zone to IST        
