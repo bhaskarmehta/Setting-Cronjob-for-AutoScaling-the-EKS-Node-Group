@@ -52,7 +52,7 @@ if __name__ == '__main__':
     # Set the time zone to IST
     tz = pytz.timezone(os.environ['TZ'])
     now = datetime.datetime.now(tz)
-    if now.hour == 14 and now.minute == 15:
+    if now.hour == 14 and now.minute == 20:
         scale_up()
     elif now.hour == 14 and now.minute == 17:
         scale_down()
